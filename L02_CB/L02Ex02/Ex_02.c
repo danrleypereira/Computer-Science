@@ -7,9 +7,12 @@ int main(){
 	scanf("%d", &N2);
 	int maior = N1 > N2 ? N1 : N2;
 	int menor = N1 < N2 ? N1 : N2;
-	if((maior/menor) == )
+	if((maior%menor) == 0)
 	{
-		
+		printf("MULTIPLO\n");
+	}else
+	{
+		printf("NAO E MULTIPLO\n");
 	}
 
 
