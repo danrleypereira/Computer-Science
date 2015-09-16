@@ -2,13 +2,24 @@
 #include <stdlib.h>
 
 int main(){
-	int N;
-	scanf("%d", &N);
-	if( N%2 == 1)
+	int i, maior, menor;//Maior e menor altura.
+	scanf("%d", &maior);
+	scanf("%d", &menor);
+	for(i=0 ; ; ++i)
 	{
-	printf("IMPAR\n");
+		maior += 2;
+		menor += 3;
+		if(menor>maior)
+		{
+			printf("%d\n", i);
+			break;
+		}
 	}
-	else printf("PAR\n");
-
+	
+	
+	
+	
+	
+	
 	return 0;
 }

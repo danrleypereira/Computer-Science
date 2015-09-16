@@ -2,13 +2,12 @@
 #include <stdlib.h>
 
 int main(){
-	int N;
+	int N, i;
 	scanf("%d", &N);
-	if( N%2 == 1)
-	{
-	printf("IMPAR\n");
+	for(i=1; i<11; i++){
+		int value = N*i;
+		printf("%dx%d=%d\n", N, i, value);
+		
 	}
-	else printf("PAR\n");
-
 	return 0;
 }

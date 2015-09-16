@@ -2,13 +2,17 @@
 #include <stdlib.h>
 
 int main(){
-	int N;
-	scanf("%d", &N);
-	if( N%2 == 1)
+	int NComodos, i;
+	scanf("%d", &NComodos);
+	double area = 0;
+	for(i=0; i<NComodos; i++)
 	{
-	printf("IMPAR\n");
+		double largura, comprimento;
+		scanf("%lf", &largura);
+		scanf("%lf", &comprimento);
+		area += (largura*comprimento);
 	}
-	else printf("PAR\n");
-
+	printf("%.1lf\n", area);
+	
 	return 0;
 }

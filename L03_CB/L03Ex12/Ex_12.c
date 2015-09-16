@@ -2,13 +2,22 @@
 #include <stdlib.h>
 
 int main(){
-	int N;
-	scanf("%d", &N);
-	if( N%2 == 1)
+	for( ; ; )
 	{
-	printf("IMPAR\n");
+		int Num;
+		scanf("%d", &Num);
+		if(Num<0)
+		{
+			break;
+		}else if(Num%2 == 0)
+		{
+			printf("%d: par\n", Num);
+		}else
+		{
+			printf("%d: impar\n", Num);
+		}	
+		
 	}
-	else printf("PAR\n");
 
 	return 0;
 }
