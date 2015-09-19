@@ -1,33 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
-	for( ; ; )
-	{
-		double SB, SL, HT, VHT, IR, INSS;//Salario Bruto,Salario Liquido Horas Trabalhadas, Valor da Hora de Trabalho, Imposto de Renda, INSS.
-		scanf("%lf", &HT);
-		if(!(HT > 0)) break;
-		scanf("%lf", &VHT);
-		SB = HT*VHT;
-		INSS = SB*0.11;
-		
-		if((SB-INSS) < 900)
-		{
-			SL = SB - INSS;//Isento;
-			printf("%.2lf\n", SL);
-		}else if((SB-INSS) >= 900 && (SB-INSS) <= 1800)
-		{
-			SL = SB-INSS;
-			SL = (SL - (SL*0.15))- 135;//15% e $135;
-			printf("%.2lf\n", SL);
-		}else if((SB-INSS) > 1800)
-		{
-			SL = SB-INSS;
-			SL = (SL - (SL*0.275))-360;//27.5% e $360;
-			printf("%.2lf\n", SL);
-		}
-		
-	}
 
-	return 0;
+int grupo_da_lesma(int VelocidadeLesma)
+{
+	if(VelocidadeLesma < 10)
+	{
+		return 1;
+	}else if(VelocidadeLesma >= 10 && VelocidadeLesma < 20)
+	{
+		return 2;
+	}else
+	{
+		return 3;
+	}
+	return printf("Erro na definicao do grupo!!\a\a\n");
+}
+	
+void lesma_mais_rapida()
+{
+	int L, Vi, i;//L = numero de lesmas; Vi = velocidade de cada lesma;
+	int nivel_da_lesma_mais_veloz = 0;
+	
+	do
+	{
+		scanf("%d", &L);
+	}
+	while((!(L > 1)) && (!(L < 500)));
+	
+	for(i=0; i<L; i++)
+	{
+		do
+		{
+			scanf("%d", &Vi);
+		}
+		while((!(Vi > 1)) && (!(L < 50)));
+		
+		nivel_da_lesma_mais_veloz = grupo_da_lesma(Vi) < nivel_da_lesma_mais_veloz ? nivel_da_lesma_mais_veloz : grupo_da_lesma(Vi);
+	}
+	printf("%d\n", nivel_da_lesma_mais_veloz);
+}
+
+
+int main()
+{
+	lesma_mais_rapida();
+	
+	
+	
+	
 }
