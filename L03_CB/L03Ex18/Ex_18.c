@@ -4,7 +4,7 @@
 
 int sum_of_days_of_year_of_birth(day, month)
 {
-	unsigned int days_spent = 0;
+	unsigned long long int days_spent = 0;
 	int i;
 	for(i=day; i <=30; i++)
 	{

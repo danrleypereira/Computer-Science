@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	for( ; ; )
+	while(1)
 	{
 		double SN, S;//New Salary. Salary.
 		static double aumentoNaFolha = 0;
@@ -24,7 +24,7 @@ int main(){
 			printf("%.2lf ", SN);
 		}else
 		{
-			printf("%.2lf\n", aumentoNaFolha);
+			printf(" %.2lf\n", aumentoNaFolha);
 			break;
 		}
 		

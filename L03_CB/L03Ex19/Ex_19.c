@@ -23,8 +23,8 @@ int main(){
 	int maior_Menor[2] = {};
         maior_menor(&maior_Menor[0]);
 
-	printf("%d\n", maior_Menor[i++]);
-	printf("%d\n", maior_Menor[i]);
+	printf("Menor: %d\n", maior_Menor[i++]);
+	printf("Maior: %d\n", maior_Menor[i]);
 
 	return 0;
 }
