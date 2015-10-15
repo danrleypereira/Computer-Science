@@ -1,0 +1,27 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
+void instrucoes_trajeto();
+void inteiro_invalido();
+void resultado(int total);
+
+int main()
+{
+    return 0;
+}
+
+void instrucoes_trajeto()
+{
+    printf("\nDigite um numero inteiro entre '0' e '7':\n");
+}
+
+void inteiro_invalido()
+{
+    printf("\nInteiro invalido! Digite um inteiro entre '0' e '7':\n");
+}
+
+void resultado(int total)
+{
+    printf("\n\nLink coletou %d rupias em seu trajeto.\n",total);
+}
