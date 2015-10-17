@@ -1,18 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define number_elements 3 
+#define number_elements 28 
 
-double* initialize_matriz_numbers_difference_0()
+double* initiliaze_matriz_numbers(double* matriz)
 {
-	double matriz[number_elements] = {};
 	int i;
         
 	for(i=0; i<number_elements ; i++)
 	{
                 scanf("%lf", &matriz[i]);
 	}
-
 	double* pointers =(double*) calloc(i, sizeof(double));
 	
 	for(i=0 ; i<number_elements; i++)
@@ -26,41 +24,46 @@ double* initialize_matriz_numbers_difference_0()
 double media_all_numbers(double* pointer)
 {
 	int i;
-	double soma_of_numbers = 0;
+	double sum_of_numbers = 0;
 	for(i=0; i<number_elements; i++)
 	{
-		soma_of_numbers = soma_of_numbers + pointer[i];
+		sum_of_numbers = sum_of_numbers + pointer[i];
 	}
-        printf("\nmedia = %lf\n", (soma_of_numbers/i));
 
-	return (soma_of_numbers/i);
+	return (sum_of_numbers/number_elements);
 }
 
 //atribui a subtração dos valores pela media na matriz
-int variancia(double* pointer, double media)
+int atribuir_sub_media_matriz(double* pointer, double media)
 {
-        printf("\nmedia = %.1lf\n", media);
 	int i;
-        register double soma_da_subtracao =0;
 	for(i=0; i<number_elements; i++)
 	{
-
-                printf("\npointer[%d] = %.1lf\n", i, pointer[i]);
 		pointer[i] = pointer[i]-media;
-                printf("\npointermedia[%d] = %.1lf\n", i, pointer[i]);
-                soma_da_subtracao = soma_da_subtracao + pointer[i];
+                double var = pointer[i]/1.0;
+                pointer[i] = pow(var, 2);
 	}
-        printf("\nsoma da subtração →→→→→→→   %.1lf\n", soma_da_subtracao);
-        printf("%.1lf\n", pow(soma_da_subtracao, 2));
-        printf("%.1lf\n", sqrt(soma_da_subtracao));
-	
-	return ;
+	return number_elements;	
+}
+
+void printar(int N_elements, double* pointer)
+{
+	int i;
+        double var, media=0, media_square=0;
+	for(i=0; i<N_elements; i++)
+	{
+                var = pointer[i]/1.0;
+                media = media + pointer[i];
+                media_square = media_square + pow(var, 2);
+	}
 }
 
 int main(void)
 {
-	double* pointer = initialize_matriz_numbers_difference_0();
-	variancia(pointer, media_all_numbers(pointer));
+	double* pointer =(double*) calloc(number_elements, sizeof(double));
+        pointer = initiliaze_matriz_numbers(pointer);
+	printar( atribuir_sub_media_matriz( pointer, media_all_numbers(pointer)), pointer );
+	
 	
 	return 0;
 }

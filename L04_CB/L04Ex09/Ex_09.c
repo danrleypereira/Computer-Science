@@ -3,66 +3,57 @@
 #include <math.h>
 #define number_elements 121 
 
-double* initialize_matriz_numbers_difference_0()
+double* initiliaze_matriz_numbers(int* matriz)
 {
-	double matriz[number_elements] = {};
 	int i;
-        
+
 	for(i=0; i<number_elements ; i++)
 	{
-                scanf("%lf", &matriz[i]);
-		
+                scanf("%d", &matriz[i]);
 	}
 
-	double* pointers =(double*) calloc(i, sizeof(double));
-	
-	for(i=0 ; i<number_elements; i++)
-	{
-		pointers[i] = matriz[i];
-		
-	}
-	
-	return pointers;
+	return matriz;
 }
 
-double media_all_numbers(double* pointer)
+double media_all_numbers(int* pointer)
 {
 	int i;
-	double soma_of_numbers = 0;
+	double sum_of_numbers = 0;
+
 	for(i=0; i<number_elements; i++)
 	{
-		soma_of_numbers = soma_of_numbers + pointer[i];
+		sum_of_numbers = sum_of_numbers + pointer[i];
 	}
 
-	return (soma_of_numbers/number_elements);
+	return (sum_of_numbers/(double)number_elements);
 }
 
 //atribui a subtração dos valores pela media na matriz
-int atribuir_sub_media_matriz(double* pointer, double media)
+int atribuir_sub_media_matriz_printar(int* pointer, double media)
 {
 	int i;
+        double dispersao_matrix[number_elements] = {};
+
 	for(i=0; i<number_elements; i++)
 	{
-		pointer[i] = pointer[i]-media;
-                pointer[i] = pow(pointer[i], 2);
+		dispersao_matrix[i] = pointer[i]-media;
+                double var = dispersao_matrix[i]/1.0;
+                dispersao_matrix[i] = pow(var, 2);
+                printar_valor(dispersao_matrix[i]);
 	}
-	return number_elements;	
+
 }
 
-void printar(int N_elements, double* pointer)
+void printar_valor(double valor)
 {
-	int i;
-	for(i=0; i<N_elements; i++)
-	{
-		printf("%.1lf ", pointer[i]);
-	}
+		printf("%.1lf ", valor);
 }
 
 int main(void)
 {
-	double* pointer = initialize_matriz_numbers_difference_0();
-	printar( atribuir_sub_media_matriz( pointer, media_all_numbers(pointer)), pointer );
-	
+	int* pointer =(int*) calloc(number_elements, sizeof(int));
+        pointer = initiliaze_matriz_numbers(pointer);
+	atribuir_sub_media_matriz_printar( pointer, media_all_numbers(pointer));
 	
 	return 0;
 }
