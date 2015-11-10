@@ -2,18 +2,19 @@
 #include <stdlib.h>
 
 int EhTriangulo(int a, int b, int c);
-void TipoTriangulo(int a, int b, int c);
+int TipoTriangulo(int a, int b, int c);
 int main()
 {
-	int a, b, c;
-	scanf("%d", &a);
-	scanf("%d", &b);
-	scanf("%d", &c);
-	if(EhTriangulo(a, b, c))
+	int i;
+	for(i=0; i<5; i++)
 	{
+		int a, b, c;
+		scanf("%d", &a);
+		scanf("%d", &b);
+		scanf("%d", &c);
+	
 		TipoTriangulo(a, b, c);
 	}
-	
 	return 0;
 }
 
@@ -32,20 +33,23 @@ int EhTriangulo(int a, int b, int c)
 	}
 }
 
-void TipoTriangulo(int a, int b, int c)
+int TipoTriangulo(int a, int b, int c)
 {
-	if((a==b) && (a==c) && (b==c))
+	if(EhTriangulo(a, b, c))
 	{
-		printf("Triangulo Equilatero\n");
-
-	}else if((a!=b) && (a!=c) && (b!=c))
-	{
+		if((a==b) && (a==c) && (b==c))
+		{
+			printf("Triangulo Equilatero\n");
+			return 1;
+		}else if((a!=b) && (a!=c) && (b!=c))
+		{
 		
-		printf("Triangulo Escaleno\n");
-
-	}else
-	{
-
-		printf("Triangulo Isosceles\n");
+			printf("Triangulo Escaleno\n");
+			return 3;
+		}else
+		{
+			printf("Triangulo Isosceles\n");
+			return 2;
+		}
 	}
 }
