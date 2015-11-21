@@ -1,0 +1,12 @@
+felipe 1234 4 5 6
+tiago 2345 8 8 8
+eduardo 3456 2 3 4
+pedro 5346 4 5 6
+jorge 1290 8 8 8
+camila 6541 2 3 4
+luiz 6219 4 5 6
+ana 2301 8 8 8
+mauricio 8712 2 3 4
+angela 1239 4 5 6
+leonardo 1435 8 8 8
+gustavo 5345 2 3 4
