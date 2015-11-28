@@ -3,9 +3,13 @@
 
 typedef struct esqueleto_filmes {
 	char TITLE[100];
-	int ORC;
+	double ORC;
 	int ID;
 	int GEN;
 	int ANO;
 	int DUR;
 }FILMES;
+
+void atribuir_valores_struct(int QF);
+void criar_arquivo(struct esqueleto_filmes filme);
+void ler_arquivo(int QF);

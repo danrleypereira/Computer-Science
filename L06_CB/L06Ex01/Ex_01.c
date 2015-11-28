@@ -1,4 +1,12 @@
 #include "Ex_01.h"
+int main()
+{
+	int QF;
+	scanf("%d", &QF);
+	atribuir_valores_struct(QF);
+    ler_arquivo();
+	return 0;
+}
 void atribuir_valores_struct(int quantidade_filmes)
 {
 	struct esqueleto_filmes filmes[quantidade_filmes];
@@ -11,36 +19,47 @@ void atribuir_valores_struct(int quantidade_filmes)
 		scanf("%d", &filmes[i].GEN); __fpurge(stdin);
 		scanf("%d", &filmes[i].ANO); __fpurge(stdin);
 		scanf("%d", &filmes[i].DUR); __fpurge(stdin);
-		
-		salvar_arquivo(filmes[i]);
-	}
+	    
+        printf("leu todos os dados!!\n");
 	
+		criar_arquivo(filmes[i]);
+	}
+    ler_arquivo(quantidade_filmes);
 }
-
-void salvar_arquivo(struct esqueleto_filmes filme)
+void criar_arquivo(struct esqueleto_filmes filme)
 {
 	FILE* fp;
-	fp = fopen("filmes.bin", "ab+");
+    printf("entrou na função criar arquivo!!\n");
+	fp = fopen("filmes.bin", "w+b");
 	if(fp != NULL)
 	{
-		fwrite(filme.TITLE, sizeof(char), 1, fp);
-		fwrite(filme.ORC, sizeof(int), 1, fp);
-		fwrite(filme.ID, sizeof(int), 1, fp);
-		fwrite(filme.GEN, sizeof(int), 1, fp);
-		fwrite(filme.ANO, sizeof(int), 1, fp);
-		fwrite(filme.DUR, sizeof(int), 1, fp);
+		fwrite(&filme.TITLE, sizeof(char), 1, fp);
+		fwrite(&filme.ORC, sizeof(double), 1, fp);
+		fwrite(&filme.ID, sizeof(int), 1, fp);
+		fwrite(&filme.GEN, sizeof(int), 1, fp);
+		fwrite(&filme.ANO, sizeof(int), 1, fp);
+		fwrite(&filme.DUR, sizeof(int), 1, fp);
 		
+        fclose(fp);
 	}else
 	{
 		printf("Error ao abrir arquivo.");
 		exit(0);
 	}
-}
-int main()
-{
-	int QF;
-	scanf("%d", &QF);
-	atribuir_valores_struct(QF);
-	return 0;
+    printf("arquivo cadastrado!\n");
 }
 
+void ler_arquivo(int QF)
+{
+    FILE* fp;
+    FILMES filme[QF]
+    fp = fopen("filmes.bin", "r+b");
+    fread();  
+		fread(&filme.TITLE, sizeof(char), 1, fp);
+		fread(&filme.ORC, sizeof(double), 1, fp);
+		fread(&filme.ID, sizeof(int), 1, fp);
+		fread(&filme.GEN, sizeof(int), 1, fp);
+		fread(&filme.ANO, sizeof(int), 1, fp);
+		fread(&filme.DUR, sizeof(int), 1, fp);
+    fclose(fp);
+}
