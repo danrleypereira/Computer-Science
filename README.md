@@ -1,2 +1,2 @@
 # CB
-My codes of the Basic Computation course.
+My codes of all courses that has been used c language.
