@@ -11,5 +11,8 @@ typedef struct esqueleto_filmes {
 }FILMES;
 
 void atribuir_valores_struct(int QF);
-void criar_arquivo(struct esqueleto_filmes filme);
 void ler_arquivo(int QF);
+void filmes_ano_lancamento_maior(int QF);
+void orcamento_menor(int QF);
+void idioma_igual(int QF);
+void duracao_maior(int QF);
