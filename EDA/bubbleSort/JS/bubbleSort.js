@@ -1,13 +1,18 @@
 var main = function(){
   var array = userArray(prompt("Quantos elementos têm no Array?", "3"));
-  confirm( array.bubbleSort().toString() );
-  print(  array.bubbleSort()  );
+  printTable(  array.bubbleSort()  );
 }
 
-var print = function(array){
-  var myTable = "<table><tr><th>posicao</th><th>n&uacute;mero</th></tr>";
+var printTable = function(array, superior, minor){
+  var myTable = "<table><tr><th>posi&ccedil;&atilde;o</th><th>n&uacute;mero</th></tr>";
   for(var i=0; i<array.length; i++){
-    myTable += "<tr> <td> "+ i +" </td>  <td> "+ array[i] +" </td> </tr>"
+    if(  i==superior ){
+      myTable += "<tr class='superior'> <td> "+ (i+1) +" </td>  <td> "+ array[i] +" </td> </tr>";
+    }else if(  i==minor   ){
+      myTable += "<tr class='minor'> <td> "+ (i+1) +" </td>  <td> "+ array[i] +" </td> </tr>";
+    }else{
+      myTable += "<tr> <td> "+ (i+1) +" </td>  <td> "+ array[i] +" </td> </tr>";
+    }
   }
   myTable += "</table>";
   document.write(myTable);
@@ -27,22 +32,13 @@ Array.prototype.bubbleSort = function(){
     done = true;
     for(var i=0; i<(this.length-1); i++){
       if(this[i] > this[i+1]){
+        printTable(this, i+1, i);
         var aux = this[i];
         this[i] = this[i+1];
         this[i+1] = aux;
         done = false;
-        print(this);
       }
     }
   }
   return this;
-}
-
-function isNumber(evt) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
-    }
-    return true;
 }

@@ -3,9 +3,44 @@ body {
   background-color: #d8da3d;
   margin: 0 40%;
 }
+
 h1 {
+  text-align: center;
   color: green;
+  background-color: yellow;
+  border-collapse:separate;
+  border:solid black 1px;
+  border-radius:6px;
 }
+
+table {
+  text-align: center;
+    border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    background-color: white;
+    margin: 0 15%;
+}
+
+td, th {
+    border-left:solid black 1px;
+    border-top:solid black 1px;
+}
+
 th {
-  color: white;
+    background-color: blue;
+    border-top: none;
+}
+
+td:first-child {
+     border-left: none;
+}
+
+.superior {
+    background-color: red;
+}
+
+.minor {
+  background-color: green;
 }
