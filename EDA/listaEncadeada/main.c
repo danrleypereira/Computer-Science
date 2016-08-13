@@ -1,28 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MALLOC(x) (x *) malloc ( sizeof(x) )
 
-struct Node{//node is each element in list  
+struct no {//node is each element in list
 	int info;
-	struct Node *previous;//indicate previous element;
-	struct Node *next;//indicate next element;
-}no;
+	struct no *previous;//indicate previous element;
+	struct no *next;//indicate next element;
+};
 // declaring pointers of control;
 struct no *first;
-struct no *end; 
+struct no *end;
 
 void insert( int info )
 {
 	struct no *new = MALLOC(struct no);
 	struct no *current;
-	
+
 	if(!new)
 	{
 		perror("Malloc: ");
 		return;
 	}
-	
+
 	//assignment new value
 	new->info = info;
 
@@ -34,7 +35,7 @@ void insert( int info )
 
 		first = new;
 		end = new;
-		
+
 		return;
 	}
 
@@ -64,7 +65,7 @@ void insert( int info )
 				new->previous = NULL;
 				current->previous = new;
 				first = new;
-				
+
 				return;
 			}
 		}
@@ -78,10 +79,22 @@ void insert( int info )
 
 }
 
+void printList ( void )
+{
+   struct no *current = first;
+
+   while ( current )
+   {
+      printf ( "Info:  %.2d\n", current->info );
+      current = current->next;
+   }
+   return;
+}
+
 struct no *search ( int info )
 {
    struct no *current = first;
-        
+
    while ( current )
    {
       if ( current->info == info)
@@ -90,4 +103,68 @@ struct no *search ( int info )
          current = current->next;
    }
    return NULL;
-} 
+}
+
+void clear( struct no *data )
+{
+	if(!data) return;
+
+	//intermediate node
+	if(data->next && data->previous)
+	{
+		data->previous->next = data->next;
+		data->next->previous = data->previous;
+
+		free ( data );
+		return ;
+	}
+
+	//first node
+	if(data == first)
+	{
+		first = data->next;
+		first->previous = NULL;
+
+		free( data );
+		return;
+	}
+
+	//end node
+	if(data == end)
+	{
+		end = data->previous;
+		end->next = NULL;
+
+		free(data);
+		return;
+	}
+}
+
+int main ( void )
+{
+   register int i;
+   first = end = NULL;
+
+   for ( i = 1; i <= 10; i++ )
+      insert(i); // case 3 - insert at end...
+
+   printList(); puts ("");
+
+
+   insert (0);  // case 1
+   insert (12); // case 3
+   insert (11); // case 2
+
+   printList (); puts ("");
+
+   // search function test
+   printf ("search( 3 ): %.2d\n\n", search(3)->info );
+
+   clear ( search ( 0) ); // case 1
+   clear ( search ( 5) ); // case 2
+   clear ( search (12) ); // case 3
+
+   printList(); puts ("");
+
+   return 0;
+}
