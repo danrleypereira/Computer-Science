@@ -77,3 +77,17 @@ void insert( int info )
 		return;
 
 }
+
+struct no *search ( int info )
+{
+   struct no *current = first;
+        
+   while ( current )
+   {
+      if ( current->info == info)
+         return current;
+      else
+         current = current->next;
+   }
+   return NULL;
+} 
