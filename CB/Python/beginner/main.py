@@ -2,6 +2,8 @@ import lista
 
 lista.printList()
 lista.printTupla()
+lista.printDictionary()
+lista.printKeysTupla()
 
 #print("Am a coment")
 '''
@@ -16,6 +18,7 @@ a = 2
 b = 3
 string = "4"
 print(type(string))
+lista.excecaoPy(string)
 
 print "a+b = %d" %(a+b)
 intString = int(string)
