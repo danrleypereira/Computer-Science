@@ -4,11 +4,14 @@
 
 #define MALLOC(x) (x *) malloc ( sizeof(x) )
 
+// #typedef struct no NO;
+
 struct no {//node is each element in list
 	int info;
 	struct no *previous;//indicate previous element;
 	struct no *next;//indicate next element;
 };
+
 // declaring pointers of control;
 struct no *first;
 struct no *end;
