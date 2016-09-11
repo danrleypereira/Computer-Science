@@ -3,6 +3,7 @@ SRCFOLDER := ./src/
 OBJFOLDER := ./obj/
 
 COMPILER := gcc
+EXE := valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all
 
 FLAGS := -g -Wall -pedantic -ansi -std=c89
 
@@ -15,7 +16,7 @@ obj/%.o: src/%.c
 	$(COMPILER) $(FLAGS) -c $< -o $@
 
 run:
-	$(BINFOLDER)EDA01
+	$(EXE) $(BINFOLDER)EDA01
 
 .PHONY: clean
 clean:
