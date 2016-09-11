@@ -56,12 +56,12 @@ void inserir_nodo(l_polinomio* pol, float coef, int expo ){
         pol->atual = novoNo;
         break;
       }else if(novoNo->expoente > pol->atual->expoente){
-        if(pol->atual->proximo == NULL){//adiciona por ultimo
+        if(pol->atual->proximo == NULL){/*adiciona por ultimo*/
           novoNo->anterior = pol->atual;
           pol->atual->proximo = novoNo;
           pol->atual = novoNo;
           break;
-        }else if(novoNo->expoente < pol->atual->proximo->coeficiente){//adiciona entre
+        }else if(novoNo->expoente < pol->atual->proximo->coeficiente){/*adiciona entre*/
           novoNo->proximo = pol->atual->proximo;
           novoNo->anterior = pol->atual;
           pol->atual->proximo->anterior = novoNo;
