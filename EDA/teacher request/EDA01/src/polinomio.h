@@ -1,6 +1,8 @@
 #ifndef POLINOMIO_H_
 #define POLINOMIO_H_
 
+#define MALLOC(x) (x *) malloc ( sizeof(x) )
+
 typedef struct nodo{
 float coeficiente;
 int expoente;

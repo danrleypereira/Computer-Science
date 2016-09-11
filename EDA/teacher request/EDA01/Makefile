@@ -20,3 +20,4 @@ run:
 .PHONY: clean
 clean:
 	rm -rf $(OBJFOLDER)*.o
+	rm -rf ./bin/EDA01

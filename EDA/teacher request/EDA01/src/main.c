@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 				printf("Qual é o expoente(int)?\n");
 				scanf("%d", &no->expoente );
 				inserir_nodo(polinomio, no->coeficiente, no->expoente);
-				/*imprime_polinomio(polinomio, 2);*/
+				imprime_polinomio(polinomio, 2);
 				break;
 			case 2:
 				imprime_polinomio(polinomio, 2);

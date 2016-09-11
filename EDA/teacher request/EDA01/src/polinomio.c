@@ -6,7 +6,12 @@
 
 p_nodo* getNodo(){
   p_nodo* nodo;
-  nodo = malloc(sizeof(p_nodo));
+  nodo = MALLOC(p_nodo);
+  if(!nodo)
+  {
+    perror("Malloc: ");
+    exit(0);
+  }
   nodo->coeficiente = 0;
   nodo->expoente = 0;
   nodo->proximo = NULL;
@@ -16,7 +21,12 @@ p_nodo* getNodo(){
 
 l_polinomio * getPolinomio(){
   l_polinomio* polinomio;
-  polinomio = malloc(sizeof(l_polinomio));
+  polinomio = MALLOC(l_polinomio);
+  if(!polinomio)
+	{
+		perror("Malloc: ");
+    exit(0);
+	}
   polinomio->primeiro = NULL;
 
   return polinomio;
@@ -24,35 +34,42 @@ l_polinomio * getPolinomio(){
 
 void inserir_nodo(l_polinomio* pol, float coef, int expo ){
   if(pol->primeiro != NULL){
+    p_nodo* novoNo = getNodo();
+    novoNo->coeficiente = coef;
+    novoNo->expoente = expo;
     while(1){
-      if( pol->primeiro->expoente <= expo ){
-        if( pol->primeiro->expoente == expo ){/*se não é igual, então é menor.*/
-          pol->primeiro->coeficiente = pol->primeiro->coeficiente + coef;
-          break;
-        }else if( pol->primeiro->proximo != NULL ){/*se não existi próximo, então este termo é o próximo*/
-          if(expo < pol->primeiro->proximo->expoente){
-            p_nodo* nodo;
-            nodo->coeficiente = coef;
-            nodo->expoente = expo;
-            nodo->proximo = pol->primeiro->proximo;
-            pol->primeiro->proximo = nodo;
-            break;
-          }
-        }else{
-          pol->primeiro->proximo = getNodo();
-          pol->primeiro->proximo->coeficiente = coef;
-          pol->primeiro->proximo->expoente = expo;
+      if( novoNo->expoente == pol->primeiro->expoente ){/*se é igual então soma os coeficientes.*/
+        printf("debug1\n");
+        printf("coef == %f\n", coef);
+        printf("primeiro expoente == %d\n", pol->primeiro->expoente);
+        printf("expo == %d\n", expo);
+        pol->primeiro->coeficiente = pol->primeiro->coeficiente + coef;
+        free(novoNo);
+        break;
+      }else if( novoNo->expoente < pol->primeiro->expoente ){
+        printf("debug1\n");
+        printf("coef == %f\n", coef);
+        printf("primeiro expoente == %d\n", pol->primeiro->expoente);
+        printf("expo == %d\n", expo);
+        novoNo->proximo = pol->primeiro;
+        pol->primeiro->proximo = novoNo;
+        pol->primeiro = novoNo;
+        break;
+      }else if( novoNo->expoente > pol->primeiro->expoente ){
+        if(pol->primeiro->proximo == NULL){
+          pol->primeiro->proximo = novoNo;
+        }else if(novoNo->expoente < pol->primeiro->proximo->expoente){
+          printf("debug1\n");
+          printf("coef == %f\n", coef);
+          printf("primeiro expoente == %d\n", pol->primeiro->expoente);
+          printf("expo == %d\n", expo);
+          novoNo->proximo = pol->primeiro->proximo;
+          pol->primeiro->proximo = novoNo;
           break;
         }
-      }else{
-        p_nodo* auxNode = getNodo();
-        auxNode->coeficiente = coef;
-        auxNode->expoente = expo;
-        auxNode->proximo = pol->primeiro;
-        pol->primeiro = auxNode;
-        break;
       }
-      pol->primeiro = pol->primeiro->proximo;
+      if(pol->primeiro->proximo != NULL)
+        pol->primeiro = pol->primeiro->proximo;
     }
   }else{
     pol->primeiro = getNodo();
@@ -65,11 +82,20 @@ void imprime_polinomio(l_polinomio* pol, char n){
   printf("p(x) = ");
   while(pol->primeiro != NULL){
     if(pol->primeiro->expoente == 0){
-      printf("%.2f ", pol->primeiro->coeficiente);
+      if(pol->primeiro->coeficiente < 0)
+        printf("%.2f ", pol->primeiro->coeficiente);
+      else
+        printf("+%.2f ", pol->primeiro->coeficiente);
     }else{
-      printf("%.2f*X^%d ", pol->primeiro->coeficiente, pol->primeiro->expoente);
+      if(pol->primeiro->coeficiente < 0)
+        printf("%.2f*X^%d ", pol->primeiro->coeficiente, pol->primeiro->expoente);
+      else
+        printf("+%.2f*X^%d ", pol->primeiro->coeficiente, pol->primeiro->expoente);
     }
-    pol->primeiro = pol->primeiro->proximo;
+    if(pol->primeiro->proximo != NULL)
+      pol->primeiro = pol->primeiro->proximo;
+    else
+      break;
   }
   printf("\n");
 }
