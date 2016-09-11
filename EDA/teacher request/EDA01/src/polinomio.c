@@ -31,10 +31,11 @@ l_polinomio * getPolinomio(){
 }
 
 void inserir_nodo(l_polinomio* pol, float coef, int expo ){
+  p_nodo* novoNo = getNodo();
+  novoNo->coeficiente = coef;
+  novoNo->expoente = expo;
+
   if(pol->primeiro != NULL){
-    p_nodo* novoNo = getNodo();
-    novoNo->coeficiente = coef;
-    novoNo->expoente = expo;
     pol->atual = pol->primeiro;
 
     while(pol->atual){
@@ -46,6 +47,7 @@ void inserir_nodo(l_polinomio* pol, float coef, int expo ){
         novoNo->proximo = pol->primeiro;
         pol->primeiro->anterior = novoNo;
         pol->primeiro = novoNo;
+        novoNo = NULL;
         break;
       }else if(novoNo->expoente < pol->atual->expoente){/*adiciona antes do atual*/
         novoNo->proximo = pol->atual;
@@ -54,18 +56,21 @@ void inserir_nodo(l_polinomio* pol, float coef, int expo ){
           novoNo->anterior = pol->atual->anterior;
         }
         pol->atual = novoNo;
+        novoNo = NULL;
         break;
       }else if(novoNo->expoente > pol->atual->expoente){
         if(pol->atual->proximo == NULL){/*adiciona por ultimo*/
           novoNo->anterior = pol->atual;
           pol->atual->proximo = novoNo;
           pol->atual = novoNo;
+          novoNo = NULL;
           break;
         }else if(novoNo->expoente < pol->atual->proximo->coeficiente){/*adiciona entre*/
           novoNo->proximo = pol->atual->proximo;
           novoNo->anterior = pol->atual;
           pol->atual->proximo->anterior = novoNo;
           pol->atual->proximo = novoNo;
+          novoNo = NULL;
           break;
         }
       }
@@ -75,10 +80,9 @@ void inserir_nodo(l_polinomio* pol, float coef, int expo ){
       }
     }
   }else{
-    pol->primeiro = getNodo();
-    pol->primeiro->coeficiente = coef;
-    pol->primeiro->expoente = expo;
+    pol->primeiro = novoNo;
     pol->atual = pol->primeiro;
+    novoNo = NULL;
   }
 }
 

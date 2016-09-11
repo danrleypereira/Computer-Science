@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include"polinomio.h"
 
-
 int main(int argc, char **argv){
 	p_nodo* no;
 	l_polinomio* polinomio;
