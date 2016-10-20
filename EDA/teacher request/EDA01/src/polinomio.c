@@ -47,7 +47,7 @@ void inserir_nodo(l_polinomio* pol, float coef, int expo ){
         novoNo->proximo = pol->primeiro;
         pol->primeiro->anterior = novoNo;
         pol->primeiro = novoNo;
-        novoNo = NULL;
+  //      novoNo = NULL;
         break;
       }else if(novoNo->expoente < pol->atual->expoente){/*adiciona antes do atual*/
         novoNo->proximo = pol->atual;
