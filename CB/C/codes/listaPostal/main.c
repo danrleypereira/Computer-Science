@@ -11,6 +11,15 @@ struct addr {
 	unsigned long int zip;
 }addr_info[MAX];
 
+int find_free(void){
+	register int t;
+	for(t=0; addr_info[t].name[0] && t<MAX; ++t);
+	
+	if(t==MAX) return -1; /*nenhum elemento livre*/
+
+	return t;
+}
+
 void init_list(void){
 	register int t;
 	
@@ -60,14 +69,6 @@ void enter(void){
 
 }
 
-int find_free(void){
-	register int t;
-	for(t=0; addr_info[t].name[0] && t<MAX; ++t);
-	
-	if(t==MAX) return -1; /*nenhum elemento livre*/
-
-	return t;
-}
 
 void delete(void){
 	register int slot;

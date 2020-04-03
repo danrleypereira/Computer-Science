@@ -1,0 +1,38 @@
+Escolha 5 dos exercício para entregar, use o Visual G para realizar as questões, depois salve os arquivos em documento word e envie pelo link da atividade aqui no blackboard:
+1 - Faça um algoritmo que gere uma tabela com os números de 1 a 10 e mostre o
+seu quadrado, cubo, fatorial, número de divisores e uma mensagem dizendo se o
+número é primo ou não. A cada 20 linhas deve ser escrito o cabeçalho novamente:
+"Número Quadrado Cubo Fatorial Divisores Primo
+2 - Faça um programa que receba 3 números, o primeiro será o início e segundo será o
+final. O terceiro é para informar se está no intervalo dos outros dois ou não.
+3 - Faça um programa que, dada a idade de um nadador.
+Classifique-o em uma das seguintes categorias:
+Infantil A = 5 - 7 anos
+Infantil B = 8 - 10 anos
+Juvenil A = 11- 13 anos
+Juvenil B = 14 - 17 anos
+Sênior = 18 - 25 anos
+Apresentar mensagem “idade fora da faixa etária” quando for outro ano não
+contemplado
+4 - Escrever um algoritmo que leia informações sobre um grupo de 250 pessoas e
+calcule alguns dados estatísticos. Para cada pessoa do grupo deve ler o nome da
+pessoa, a altura, o peso e o sexo (“F” para feminino e “M” para o masculino). Calcular e
+escrever: A quantidade total de homens e mulheres e o percentual de cada. A média
+de peso das pessoas (somatório dos pesos de todas as pessoas pela quantidade de
+pessoas) O nome da pessoa mais alta.
+5 - Escrever um algoritmo que lê um número não determinado de valores para m,
+todos inteiros e positivos, um de cada vez. Se m for par, verificar quantos divisores
+possui e escrever esta informação. Se m for ímpar e menor do que 12 calcular e
+escrever o fatorial de m. Se m for ímpar e maior ou igual a 12 calcular e escrever a
+soma dos inteiros de 1 até número lido.
+6 - Faça um programa que exiba todos os números pares de 2 a 200.
+7 - Ler três notas de um aluno, calcular a média e informar se ele foi
+aprovado (Média ≥ 7), reprovado (Média < 7) ou aprovado com
+louvor (Média = 10)
+8 - Faça um programa que receba 3 números e efetue a multiplicação
+dos dois primeiros e divida pelo terceiro.
+9 - Faça um programa que faça a conversão de reais para dólar. O
+programa deverá receber a cotação do dólar.
+10 - Faça um programa que receba um valor em reais e quantidade de
+meses e depois exiba o valor do rendimento da poupança se for de
+0,70% ao mês.
