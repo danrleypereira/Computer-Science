@@ -1,4 +1,5 @@
 #include<stdio.h>
+void task01();
 void task02();
 void task03();
 void task05();
@@ -14,21 +15,22 @@ int main(){
 		switch(task)
 		{
 			case 1:
-				printf("Você digitou o número %d\n", task);
+				printf("Exercício nº 0%d é para calcular o bônus de clientes de um supermercado\n", task);
+				task01();
 				break;
 			case 2:
-				printf("Você o exercicío 0%d\n", task);
+				printf("O exercicío nº 0%d imprime na tela os números ímpares entre 100 e 200\n", task);
 				task02();
 				break;
 			case 3:
-				printf("Você digitou o número %d\n", task);
+				printf("O exercício nº 0%d converte uma temperatura em Fahrenheit para Celsius\n", task);
 				task03();
 				break;
 			case 4:
-				printf("Você digitou o número %d\n", task);
+				printf("Exercício nº 0%d ainda não implementado\n", task);
 				break;
 			case 5:
-				printf("Você digitou o número %d\n", task);
+				printf("Exercício nº 0%d informa se um número é divisível por 10, por 5 ou por 2\n", task);
 				task05();
 				break;
 			default:
@@ -40,12 +42,46 @@ int main(){
 	return 0;
 }
 
-void task02(){
+void task01()
+{
+	struct 
+	{
+		char name[12];
+		float lastYearSpentAtSupermarket;
+	} clientData ;
+	int numberOfClients;
+	printf("Quantos clientes ?\n");
+	scanf("%d", &numberOfClients);
+	for(int i = 1; i <= numberOfClients; i++)
+	{
+		printf("Qual é primeiro nome do cliente nº%d?\n", i);
+		//if( fgets(clientData.name, 12, stdin) )
+		//	printf("Nome inválido, (máximo de 11 letras)\n");
+		scanf("%s", clientData.name);
+		printf("Qual é o valor gasto por %s no último ano?\n", clientData.name);
+		scanf("%f", &clientData.lastYearSpentAtSupermarket);
+		if(clientData.lastYearSpentAtSupermarket < 1000 )
+		{
+			float bonus = clientData.lastYearSpentAtSupermarket*0.10;
+			printf("o valor do bônus é %.2f\n", bonus );
+		}
+		else
+		{
+			float bonus = clientData.lastYearSpentAtSupermarket*0.15;
+			printf("o valor do bônus é %.2f\n", bonus );
+		}
+	}
+
+}
+void task02()
+{
+	
 	for(int i = 101; i < 200; i++){
 		printf("%d\n", i++);
 	}
 }
-void task05(){
+void task05()
+{
 	int number;
 	int isDivisible = 0;//test variable to be like a boolean type
 	printf("Digite um número: ");
@@ -64,9 +100,9 @@ void task05(){
 	}
 	if( isDivisible == 0 )
 		printf("Número não é divisível por nenhum deles!\n");
-	
 }
-void task03(){
+void task03()
+{
 	float tempF, tempC;
 	printf("Digite a temperatura em Fahrenheit:\n");
 	scanf("%f", &tempF);
