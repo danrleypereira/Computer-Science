@@ -4,3 +4,4 @@ FILES = library.h main.c
 
 main:
 	${CC} ${FILES} ${FLAGS} -o exe.out
+
