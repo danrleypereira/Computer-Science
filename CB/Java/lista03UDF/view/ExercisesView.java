@@ -12,11 +12,16 @@ import javax.swing.*;
 public class ExercisesView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private JButton[] exercisesButtons = new JButton[10];  //exercise label
+	private JButton[] exercisesButtons = new JButton[10];  //exercise buttons
+	private JLabel infoLabel = new JLabel("Programação de Computadores - UDF");
+	private JLabel danrleyLabel = new JLabel("Danrley Willyan da Silva Pereira 2355147-0\n");
 	
 	public ExercisesView() {
 		super( "Programação de computadores - Avaliação 03" );
 		setLayout( new FlowLayout() );
+
+		add(infoLabel);
+		add(danrleyLabel);
 		
 		exercisesButtons[0] = new JButton("Exercício 01");
 		exercisesButtons[0].setToolTipText("Este é o Exercício 01");
