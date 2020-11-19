@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+            div
+            {
+                width: 300px;
+                height: 300px;
+                border: 1px solid silver;
+            }
+        </style>
+
+    </head>
+    <body>
+        <label for="colorPicker_red">red</label>
+        <input type="radio" name="colorPicker" id="colorPicker_red" value="red" title="Choose Color" />
+        <label for="colorPicker_blue">blue</label>
+        <input type="radio" name="colorPicker" id="colorPicker_blue" value="blue" title="Choose Color" />
+        <label for="colorPicker_black">black</label>
+        <input type="radio" name="colorPicker" id="colorPicker_black" value="black" title="Choose Color" />
+        <label for="colorPicker_yellow">yellow</label>
+        <input type="radio" name="colorPicker" id="colorPicker_yellow" value="yellow" title="Choose Color" />
+        <input type="submit" onclick="changeColorEvent()">
+        
+        <div></div>
+        <script>
+            var changeColorEvent = function(){
+                var colorPicked = document.querySelector('input[name="colorPicker"]:checked').value;
+                switch (colorPicked) {
+                    case 'red':
+                        document.getElementsByTagName('div')[0].style.backgroundColor = 'red';
+                        break;
+                    case 'blue':
+                        document.getElementsByTagName('div')[0].style.backgroundColor = 'blue';
+                        break;
+                    case 'black':
+                        document.getElementsByTagName('div')[0].style.backgroundColor = 'black';
+                        break;
+                    case 'yellow':
+                        document.getElementsByTagName('div')[0].style.backgroundColor = 'yellow';
+                        break;
+                    default:
+                        document.getElementsByTagName('div')[0].style.backgroundColor = 'white';
+                        break;
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+

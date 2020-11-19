@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+            div
+            {
+                width: 300px;
+                height: 300px;
+                border: 1px solid silver;
+            }
+        </style>
+
+    </head>
+    <body>
+        <label for="peso">Qual é o seu peso em Kg?</label>
+        <input type="number" name="imcPeso" id="peso" value="peso" title="Choose Color" />
+        <label for="altura">Qual é sua altura em centímetros?</label>
+        <input type="number" name="imcAltura" id="altura" value="altura" title="Choose Color" />
+        <input type="submit" onclick="CalculateIMC()">
+        
+        <div id="myDiv"></div>
+        <script>
+            var CalculateIMC = function(){
+                var peso = document.querySelector('input[name="imcPeso"]').value;
+                var altura = document.querySelector('input[name="imcAltura"]').value;
+
+                console.log("peso => "+peso);
+                console.log("altura => "+altura);
+               
+               
+                calculo = peso / ((altura/100) * (altura/100));
+                console.log("calculo => "+calculo);
+
+	
+                if (calculo < 18.5)
+                {
+                    abaixoDoPeso();
+                } else
+                if ((calculo >= 18.5) && (calculo <= 24.9))
+                {
+                    pesoNormal();
+                } else
+                if ((calculo >= 25) && (calculo <= 29.9))
+                {
+                    sobrepeso();
+                } else
+                if ((calculo >= 30) && (calculo <= 34.9))
+                {
+                    obesidade1();
+                } else
+                if ((calculo >= 35) && (calculo <= 39.9))
+                {
+                    obesidade2();
+                } else
+                {
+                    obesidade3();
+                }
+            }
+            function abaixoDoPeso()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'yellow';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Abaixo do peso.';
+            }
+
+            function pesoNormal()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'green';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Peso ideal. Parabéns!';
+            }
+
+            function sobrepeso()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'yellow';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Levemente acima do peso.';
+            }
+
+            function obesidade1()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'orange';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Obesidade Grau 1.';
+            }
+
+            function obesidade2()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'red';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Obesidade Grau 2 (Severa).';
+            }
+
+            function obesidade3()
+            {
+                document.getElementsByTagName('div')[0].style.backgroundColor = 'red';
+                document.getElementsByTagName('div')[0].innerHTML = 'Resultado: Obesidade Grau 3 (Mórbida).';
+            }
+        </script>
+        <footer style="position: absolute; bottom: 0;">Danrley Pereira</br>RGM: 2355147-0</footer>
+    </body>
+</html>
+
+
+
+
+

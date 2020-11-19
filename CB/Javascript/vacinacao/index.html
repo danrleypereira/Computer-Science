@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+            #myDiv
+            {
+                width: 300px;
+                height: 300px;
+                border: 1px solid silver;
+            }
+            input:invalid {
+                border: 2px dashed red;
+            }
+
+            input:valid {
+               border: 2px solid black;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div>
+            <h5>Professora Kerlla de Souza Luz Prates</h5>
+        </div>
+        <form onsubmit="event.preventDefault(); HandleSubmit()" action="">
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">Nome</span>
+                </div>
+                <input type="text" class="form-control" name="nome" id="nome" title="Escolha um Nome" placeholder="Nome" aria-label="Username" aria-describedby="addon-wrapping">
+            </div>
+            <br>
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input required type="date" name="dataNascimento" id="dataNascimento" value="dataNascimento" title="Choose Birth Date" />
+            <br>
+            <input required name="genero" type="radio" id="masculino" value="m" title="Choose Gender">
+            <label for="genero">Masculino</label>
+            <input required name="genero" type="radio" id="feminino" value="f" title="Choose Gender">
+            <label for="genero">Feminino</label>
+            <br>
+            <input type="submit" class="btn btn-outline-primary">
+        </form>
+        
+        <div id="myDiv" style="display: none;">
+            <h3>Ficha de vacinação</h3>
+            <p>Nome: <b id="name"></b></p>
+            <p>Idade: <b id="age"></b></p>
+            <p id="vacinacao"></p>
+        </div>
+        <script src="script.js"></script>
+        <footer style="position: absolute; bottom: 0;">Danrley Pereira</br>RGM: 2355147-0</footer>
+    </body>
+</html>
+
+
+
+
+
