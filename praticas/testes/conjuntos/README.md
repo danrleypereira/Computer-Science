@@ -1,0 +1,1 @@
+g++ -std=c++11 textFile.cpp -o exeFile.out
