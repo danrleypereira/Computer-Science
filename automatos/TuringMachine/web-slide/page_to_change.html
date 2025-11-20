@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"><meta name="generator" content="Jekyll v4.4.1"><meta property="og:title" content="Coding with Karthik: Turing Machine in C"><meta property="og:locale" content="en"><meta name="description" content="What is a Turing Machine?"><meta property="og:description" content="What is a Turing Machine?"><link rel="canonical" href="https://karthikvedula.com/posts/turing/"><meta property="og:url" content="https://karthikvedula.com/posts/turing/"><meta property="og:site_name" content="Karthik’s Blog"><meta property="og:type" content="article"><meta property="article:published_time" content="2024-06-28T10:03:00-04:00"><meta name="twitter:card" content="summary"><meta property="twitter:title" content="Coding with Karthik: Turing Machine in C"> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-08-19T14:52:34-04:00","datePublished":"2024-06-28T10:03:00-04:00","description":"What is a Turing Machine?","headline":"Coding with Karthik: Turing Machine in C","mainEntityOfPage":{"@type":"WebPage","@id":"https://karthikvedula.com/posts/turing/"},"url":"https://karthikvedula.com/posts/turing/"}</script><title>Coding with Karthik: Turing Machine in C | Karthik's Blog</title><link rel="icon" type="image/png" href="https://karthikvedula.com/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="https://karthikvedula.com/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="https://karthikvedula.com/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="https://karthikvedula.com/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="https://karthikvedula.com/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com/"><link rel="dns-prefetch" href="https://fonts.googleapis.com/"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""><link rel="dns-prefetch" href="https://fonts.gstatic.com/"><link rel="preconnect" href="https://cdn.jsdelivr.net/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net/"><link rel="stylesheet" href="page_to_change_files/jekyll-theme-chirpy.css"><link rel="stylesheet" href="page_to_change_files/css2.css"><link rel="stylesheet" href="page_to_change_files/all.min.css"><link rel="stylesheet" href="page_to_change_files/tocbot.min.css"><link rel="stylesheet" href="page_to_change_files/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="page_to_change_files/glightbox.min.css"> <script src="page_to_change_files/theme.min.js"></script> <script defer="defer" src="page_to_change_files/tocbot.min.js"></script> <script defer="defer" src="page_to_change_files/post.min.js"></script> <script defer="defer" src="page_to_change_files/app.min.js"></script><meta id="webpki_beta_lacunasoftware_com"><meta id="webpki_lacunasoftware_com"></head><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="https://karthikvedula.com/" id="avatar" class="rounded-circle"><img src="page_to_change_files/profile.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="https://karthikvedula.com/">Karthik's Blog</a><p class="site-subtitle fst-italic mb-0">Welcome
+ to my blog! I'm an incoming freshman at Stanford University, and I'm 
+excited to share my journey in computer science and beyond.</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="https://karthikvedula.com/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a></li><li class="nav-item"> <a href="https://karthikvedula.com/photography/" class="nav-link"> <i class="fa-fw fas fa-camera"></i> <span>PHOTOGRAPHY</span> </a></li><li class="nav-item"> <a href="https://karthikvedula.com/videos/" class="nav-link"> <i class="fa-fw fas fa-video"></i> <span>VIDEOS</span> </a></li><li class="nav-item"> <a href="https://karthikvedula.com/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a></li><li class="nav-item"> <a href="https://karthikvedula.com/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a></li></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/oboy-1" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="javascript:location.href = 'mailto:' + ['karthik','vedula.me'].join('@')" aria-label="email"> <i class="fas fa-envelope"></i> </a> <a href="https://www.linkedin.com/in/karthik-s-vedula/" aria-label="linkedin" target="_blank" rel="noopener noreferrer"> <i class="fab fa-linkedin"></i> </a> <a href="https://scholar.google.com/citations?user=97KpT5IAAAAJ&amp;hl=en&amp;authuser=2&amp;oi=ao" aria-label="gscholar" target="_blank" rel="noopener noreferrer"> <i class="fab fa-google-scholar"></i> </a> <a href="https://karthikvedula.com/feed.xml" aria-label="rss"> <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100"><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="https://karthikvedula.com/">Home</a> </span> <span>Coding with Karthik: Turing Machine in C</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip="">Coding with Karthik: Turing Machine in C</h1><div class="post-meta text-muted"> <span> Posted <time data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Fri, Jun 28, 2024 11:03 AM">Jun 28, 2024</time> </span> <span> Updated <time data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tue, Aug 19, 2025 3:52 PM">Aug 19, 2025</time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://www.linkedin.com/in/karthik-s-vedula/">Karthik S. Vedula</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="2252 words"> <em>12 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Coding with Karthik: Turing Machine in C</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Coding with Karthik: Turing Machine in C</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><h3 id="what-is-a-turing-machine"><span class="me-2">What is a Turing Machine?</span><a href="#what-is-a-turing-machine" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><a href="https://karthikvedula.com/assets/images/2024/06/turing_model.jpg" class="popup img-link"><img src="page_to_change_files/turing_model.jpg" alt="Image" loading="lazy"></a></p><figcaption>Image from <a href="https://en.wikipedia.org/wiki/Turing_machine">Wikipedia</a></figcaption><blockquote><p>“We can only see a short distance ahead, but we can see plenty there that needs to be done.”</p><p>– Alan Turing.</p></blockquote><p>A
+ Turing machine is a theoretical model of computation introduced by the 
+British mathematician and logician Alan Turing in 1936 – <em>way</em> 
+before there was anything like the computers of today. It is used to 
+define the limits of what can be computed and to understand the nature 
+of algorithmic processes. The Turing Machine is comprised of the 
+following:</p><ol><li><p>Tape: An infinite strip divided into cells, 
+each capable of holding a symbol from a finite alphabet. The tape serves
+ as the machine’s memory.</p></li><li><p>Head: A read-write head that can move left or right along the tape and read or write symbols on the tape.</p></li><li><p>State
+ Register: A register that holds the state of the Turing machine. There 
+is a finite set of states, including a designated start state and one or
+ more halting states. (This post will explain more about this)</p></li><li><p>Transition Function: A set of rules that, given the current state and the symbol being read by the head, dictate the following:</p><ul><li>The symbol to write on the tape (which may be the same or different from the symbol read).</li><li>The direction to move the head (left or right).</li><li>The next state of the machine.</li></ul></li></ol><blockquote class="prompt-info"><p>Note:
+ The Turing Machine is an abstract concept – we do not indeed have 
+infinite memory. Therefore, we will pretend in this implementation that 
+20 memory cells will do.</p></blockquote><blockquote class="prompt-tip"><p>Want to learn more about the implications of the Turing Machine? Learn about <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing completeness</a></p></blockquote><p><a href="https://karthikvedula.com/assets/images/2024/06/turing_demo.gif" class="popup img-link light shimmer"><img src="page_to_change_files/turing_demo.gif" alt="Image" loading="lazy"></a> <a href="https://karthikvedula.com/assets/images/2024/06/turing_demo_dark.gif" class="popup img-link dark"><img src="page_to_change_files/turing_demo_dark.gif" alt="Image" loading="lazy"></a></p><figcaption>What we will be making in this blog post</figcaption><h3 id="credit"><span class="me-2">Credit</span><a href="#credit" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><a href="https://www.youtube.com/watch?v=QO6nYR6dr8Y">This YouTube Video</a>
+ was very instrumental in helping me write this code. While the video 
+implements the Turing Machine in C++ and has a GUI rather than the 
+terminal-based interface in this blog post, a lot of the schematics of 
+the implementation of the Turing Machine in this blog post came from the
+ video. Find the code accompanying the video <a href="https://github.com/tucna/TuringMachine">here</a></p><h3 id="terminal-display-machinec"><span class="me-2">Terminal Display (<code class="language-plaintext highlighter-rouge">machine.c</code>)</span><a href="#terminal-display-machinec" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>We will first create the program that emulates the movement and actions of the Turing Machine (<strong>implementing that tape and head</strong>).
+ This program allows a visual representation of the Turing Machine to be
+ animated onto the terminal, along with being able to interpret 
+instructions to move the Turing Machine and manipulate the memory.</p><h4 id="print_mem"><span class="me-2"><code class="language-plaintext highlighter-rouge">print_mem</code></span><a href="#print_mem" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>The
+ function below, given the memory array and the location of the current 
+pointer, pretty prints it out as a visualization of a Turing Machine. 
+The top row contains the values stored in the different memory 
+locations. The row below are the indices/addresses of those memory 
+locations. Finally, there is a marking below a certain memory location, 
+denoting where the head or <code class="language-plaintext highlighter-rouge">current_pointer</code> is. The specific instruction run at that timestep is also printed on the top (in this case <code class="language-plaintext highlighter-rouge">&gt;</code>, as seen in the example below the code).</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">print_mem</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">current_pointer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// print values</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"[ "</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%-4c | "</span><span class="p">,</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"]</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+  <span class="c1">// print indices beneath</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"  "</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%-4d | "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+  <span class="c1">// print arrow showing where current pointer is</span>
+  <span class="c1">// arrow tip</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"  "</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">current_pointer</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s   "</span><span class="p">,</span> <span class="s">" "</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s"</span><span class="p">,</span> <span class="s">"_"</span><span class="p">);</span>
+  <span class="c1">// arrow stem</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">  "</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">current_pointer</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s   "</span><span class="p">,</span> <span class="s">" "</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s"</span><span class="p">,</span> <span class="s">"|"</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">  "</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">current_pointer</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s   "</span><span class="p">,</span> <span class="s">" "</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%-4s"</span><span class="p">,</span> <span class="s">"|"</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><p><a href="https://karthikvedula.com/assets/images/2024/06/turing_display.png" class="popup img-link light shimmer"><img src="page_to_change_files/turing_display.png" alt="Image" loading="lazy"></a> <a href="https://karthikvedula.com/assets/images/2024/06/turing_display_dark.png" class="popup img-link dark"><img src="page_to_change_files/turing_display_dark.png" alt="Image" loading="lazy"></a></p><figcaption>Visualization of the Turing Machine</figcaption><h4 id="delay_and_flush"><span class="me-2"><code class="language-plaintext highlighter-rouge">delay_and_flush</code></span><a href="#delay_and_flush" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>Rather
+ than having the program print the time step visualization one right 
+below the previous one, I added a function that flushes/clears 
+everything on the screen before displaying the next time step. 
+Additionally, I added a delay between each timestep for better 
+visualization. Since the sleep function varies for Unix-like and Windows
+ operating systems, you can use <code class="language-plaintext highlighter-rouge">#ifdef,</code> which the preprocessor (the program that edits the C code before handing it to the compiler) uses to decide whether to use the <code class="language-plaintext highlighter-rouge">Sleep</code> function (for Windows) or <code class="language-plaintext highlighter-rouge">usleep</code> (for Unix and related OS). This idea was from this <a href="https://stackoverflow.com/questions/14818084/what-is-the-proper-include-for-the-function-sleep">StackOverflow post</a>. The <code class="language-plaintext highlighter-rouge">DELAY</code> symbol is also handled by the preprocessor (as set by the <code class="language-plaintext highlighter-rouge">#define</code> line)</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">delay_and_flush</span><span class="p">()</span> <span class="p">{</span>
+<span class="c1">// from</span>
+<span class="c1">// https://stackoverflow.com/questions/14818084/what-is-the-proper-include-for-the-function-sleep</span>
+<span class="cp">#ifdef _WIN32
+</span>  <span class="n">Sleep</span><span class="p">(</span><span class="n">DELAY</span><span class="p">);</span>
+<span class="cp">#else
+</span>  <span class="n">usleep</span><span class="p">(</span><span class="n">DELAY</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="cp">#endif
+</span>
+  <span class="c1">// clear screen</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"\e[1;1H\e[2J"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><p>At the top of the file, I had to add the following:</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="cp">#define DELAY 100
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="cp">#ifdef _WIN32
+#include</span> <span class="cpf">&lt;Windows.h&gt;</span><span class="cp">
+#else
+#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+#endif
+</span></pre></td></tr></tbody></table></code></div></div><h4 id="run_machine"><span class="me-2"><code class="language-plaintext highlighter-rouge">run_machine</code></span><a href="#run_machine" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>Finally,
+ we have the function that converts instructions into changes to the 
+memory and the movement of the head itself. The instruction set is 
+explicitly stated in the code below (and instructions are passed through
+ the <code class="language-plaintext highlighter-rouge">input</code> parameter). The function <code class="language-plaintext highlighter-rouge">run_machine</code> has the <code class="language-plaintext highlighter-rouge">current_pointer</code>
+ passed in by reference as it has to be able to change the value of the 
+variable and have such change be reflected outside of the function 
+scope. The function also makes changes to the <code class="language-plaintext highlighter-rouge">array</code> parameter. Since the <code class="language-plaintext highlighter-rouge">array</code>
+ variable by nature is a pointer to the first element of the array, 
+there is no need to point to the pointer (I made that mistake and was 
+debugging a bus error for a couple hours :D )! reference</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nf">run_machine</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">array_size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">current_pointer</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span>
+                 <span class="kt">int</span> <span class="n">input_size</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">current_pointer</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"Current pointer negative: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="o">*</span><span class="n">current_pointer</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="sc">'&gt;'</span><span class="p">:</span>
+      <span class="p">(</span><span class="o">*</span><span class="n">current_pointer</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'&lt;'</span><span class="p">:</span>
+      <span class="p">(</span><span class="o">*</span><span class="n">current_pointer</span><span class="p">)</span><span class="o">--</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'0'</span><span class="p">:</span>
+      <span class="n">array</span><span class="p">[</span><span class="o">*</span><span class="n">current_pointer</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'0'</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'1'</span><span class="p">:</span>
+      <span class="n">array</span><span class="p">[</span><span class="o">*</span><span class="n">current_pointer</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'1'</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'_'</span><span class="p">:</span>
+      <span class="n">array</span><span class="p">[</span><span class="o">*</span><span class="n">current_pointer</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'_'</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'H'</span><span class="p">:</span> <span class="c1">// halt</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">--------------- HALTING -------------</span><span class="se">\n\n</span><span class="s">"</span><span class="p">);</span>
+      <span class="n">print_mem</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">array_size</span><span class="p">,</span> <span class="o">*</span><span class="n">current_pointer</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="sc">'\0'</span><span class="p">:</span> <span class="c1">// empty, so do not print anything</span>
+    <span class="k">case</span> <span class="sc">' '</span><span class="p">:</span>
+    <span class="k">case</span> <span class="sc">'\t'</span><span class="p">:</span>
+    <span class="k">case</span> <span class="sc">'\n'</span><span class="p">:</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">--------------- %c -------------</span><span class="se">\n\n</span><span class="s">"</span><span class="p">,</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">print_mem</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">array_size</span><span class="p">,</span> <span class="o">*</span><span class="n">current_pointer</span><span class="p">);</span>
+    <span class="n">delay_and_flush</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><h3 id="states-turingc"><span class="me-2">States (<code class="language-plaintext highlighter-rouge">turing.c</code>)</span><a href="#states-turingc" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Now that we got a program that, given instructions like “<code class="language-plaintext highlighter-rouge">&gt;&gt;0&lt;1</code>”,
+ will emulate a Turing Machine moving around and writing symbols on a 
+piece of tape, we can now move on to programming rules or states of this
+ machine that will decide what instructions to carry out (<strong>state register and transition function</strong>).</p><p><a href="https://karthikvedula.com/assets/images/2024/06/state_diagram.png" class="popup img-link light shimmer"><img src="page_to_change_files/state_diagram.png" alt="Image" width="500" loading="lazy"></a> <a href="https://karthikvedula.com/assets/images/2024/06/state_diagram_dark.png" class="popup img-link dark"><img src="page_to_change_files/state_diagram_dark.png" alt="Image" width="500" loading="lazy"></a></p><figcaption>Sample state diagram</figcaption><p>Above is a <strong>state diagram</strong>. At any point in time the Turing Machine will be in a certain <strong>state</strong>
+ (see the circles labels “A”, “B”, “C” etc.). Depending on the value of 
+memory the Turing Machine head is reading, the Turing Machine and then 
+transition to the next state depending on the value of memory under its 
+head (see the arrows connecting the different states in the diagram 
+above). Before transitioning to a different state, the Turing Machine 
+will perform an action (can be writing to the memory section under its 
+head and moving one step to the left or tight). The state called “H” is 
+the <strong>“Halt state”</strong>, which stops the machine. The halt state itself is another rabbit hole (check out the <a href="https://www.youtube.com/watch?v=macM_MtS_w4">Halting problem</a>)!</p><blockquote class="prompt-info"><p>Note: In the code I wrote, I wrote the halt state as an <strong>action</strong> the Turing Machine performs rather than a state in of itself. The functionality doesn’t change regardless.</p></blockquote><blockquote class="prompt-tip"><p>Fun Fact: State diagrams like the one shown above are great for visualizing Regular Expressions. Learn more about that <a href="https://www.categories.acsl.org/wiki/index.php?title=FSAs_and_Regular_Expressions">here</a>.</p></blockquote><p>This is the fundamental idea: the Turing machine needs to know</p><ol><li>the current state</li><li>current memory value</li></ol><p>to be able to carry out an action and move on to the next state.</p><h4 id="structs-search-and-state_info_to_instruction"><span class="me-2">Structs, <code class="language-plaintext highlighter-rouge">search</code>, and <code class="language-plaintext highlighter-rouge">state_info_to_instruction</code></span><a href="#structs-search-and-state_info_to_instruction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>There are no objects in C, but there are “structs”. I defined two structs in my program. The struct named <code class="language-plaintext highlighter-rouge">state</code> encapsulates all state information (instead of letters, we are using numbers for identifying states), and the struct named <code class="language-plaintext highlighter-rouge">instruction</code>
+ encapsulates what the Turing Machine should do: perform an action 
+determined by the machine instruction – which is just the write-value 
+combined with the move value – and then move to the next state.</p><p>The <code class="language-plaintext highlighter-rouge">search</code> function (yes, it is a linear search… I don’t know how to code a hashmap in C yet…) gives a full state structure given the</p><ol><li>the current state</li><li>current memory value.</li></ol><p>The <code class="language-plaintext highlighter-rouge">state_info_to_instruction</code> function uses this <code class="language-plaintext highlighter-rouge">search</code> function to give a <code class="language-plaintext highlighter-rouge">instruction</code>
+ structure based on these two pieces of information. Note that both of 
+these functions do not return anything, and rather modify the last 
+parameter (passed by reference) given to them.</p><p>These structs and functions together create the states and transition function.</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+</pre></td><td class="rouge-code"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">state</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">state_number</span><span class="p">;</span> <span class="c1">// just in id</span>
+  <span class="kt">char</span> <span class="n">mem_value</span><span class="p">;</span>   <span class="c1">// the value in current memory location that it must have</span>
+  <span class="kt">int</span> <span class="n">next_state</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">write_value</span><span class="p">;</span> <span class="c1">// '0', '1', or '_'</span>
+  <span class="kt">char</span> <span class="n">move</span><span class="p">;</span>        <span class="c1">// move left = '&lt;' and move right = '&gt;'; 'H' for halt.</span>
+<span class="p">}</span> <span class="n">state</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">instruction</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">machine_instruction</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// last is null</span>
+  <span class="kt">int</span> <span class="n">next_state</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">instruction</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">search</span><span class="p">(</span><span class="kt">int</span> <span class="n">curr_state_number</span><span class="p">,</span> <span class="kt">char</span> <span class="n">curr_mem_value</span><span class="p">,</span> <span class="n">state</span> <span class="o">*</span><span class="n">state_list</span><span class="p">,</span>
+            <span class="kt">int</span> <span class="n">state_list_len</span><span class="p">,</span> <span class="n">state</span> <span class="o">*</span><span class="n">match</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">state_list_len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">state</span> <span class="n">s</span> <span class="o">=</span> <span class="n">state_list</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">state_number</span> <span class="o">==</span> <span class="n">curr_state_number</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">.</span><span class="n">mem_value</span> <span class="o">==</span> <span class="n">curr_mem_value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">match</span><span class="o">-&gt;</span><span class="n">state_number</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">state_number</span><span class="p">;</span>
+      <span class="n">match</span><span class="o">-&gt;</span><span class="n">mem_value</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">mem_value</span><span class="p">;</span>
+      <span class="n">match</span><span class="o">-&gt;</span><span class="n">next_state</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">next_state</span><span class="p">;</span>
+      <span class="n">match</span><span class="o">-&gt;</span><span class="n">write_value</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">write_value</span><span class="p">;</span>
+      <span class="n">match</span><span class="o">-&gt;</span><span class="n">move</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">move</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// if couldn't find state, just exit.</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Couldn't find state with state number %d and mem value of %c"</span><span class="p">,</span>
+         <span class="n">curr_state_number</span><span class="p">,</span> <span class="n">curr_mem_value</span><span class="p">);</span>
+  <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">state_info_to_instruction</span><span class="p">(</span><span class="kt">int</span> <span class="n">state_number</span><span class="p">,</span> <span class="kt">char</span> <span class="n">state_mem_value</span><span class="p">,</span>
+                               <span class="n">state</span> <span class="o">*</span><span class="n">state_list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">state_list_len</span><span class="p">,</span>
+                               <span class="n">instruction</span> <span class="o">*</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">state</span> <span class="n">match</span><span class="p">;</span>
+  <span class="n">search</span><span class="p">(</span><span class="n">state_number</span><span class="p">,</span> <span class="n">state_mem_value</span><span class="p">,</span> <span class="n">state_list</span><span class="p">,</span> <span class="n">state_list_len</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">match</span><span class="p">);</span>
+
+  <span class="n">res</span><span class="o">-&gt;</span><span class="n">next_state</span> <span class="o">=</span> <span class="n">match</span><span class="p">.</span><span class="n">next_state</span><span class="p">;</span>
+  <span class="n">res</span><span class="o">-&gt;</span><span class="n">machine_instruction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="p">.</span><span class="n">write_value</span><span class="p">;</span>
+  <span class="n">res</span><span class="o">-&gt;</span><span class="n">machine_instruction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="p">.</span><span class="n">move</span><span class="p">;</span>
+  <span class="n">res</span><span class="o">-&gt;</span><span class="n">machine_instruction</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><h4 id="file-input"><span class="me-2">File input</span><a href="#file-input" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>The states are provided to the program by inputting a file. Below is the code that does this:</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+</pre></td><td class="rouge-code"><pre><span class="cm">/* file format is as follows:
+ * first line is number of states.
+ * every line after that is a single string, where the
+ * 1st character: state number
+ * 2nd character: memory value of the state
+ * 3rd character: next state number
+ * 4th character: write value
+ * 5th character: which way to move (or Halt)
+ */</span>
+<span class="n">state</span> <span class="o">*</span><span class="nf">get_states_from_file</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num_lines</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">pfile</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pfile</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"No file %s"</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">state</span> <span class="o">*</span><span class="n">states</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">num_lines</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">state</span><span class="p">));</span>
+
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAX_LINE_LENGTH</span><span class="p">];</span>
+
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">num_lines</span><span class="p">;</span> <span class="n">count</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">MAX_LINE_LENGTH</span><span class="p">,</span> <span class="n">pfile</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">states</span><span class="p">[</span><span class="n">count</span><span class="p">].</span><span class="n">state_number</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span> <span class="c1">// convert char to integer</span>
+      <span class="n">states</span><span class="p">[</span><span class="n">count</span><span class="p">].</span><span class="n">mem_value</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="n">states</span><span class="p">[</span><span class="n">count</span><span class="p">].</span><span class="n">next_state</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">;</span>
+      <span class="n">states</span><span class="p">[</span><span class="n">count</span><span class="p">].</span><span class="n">write_value</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">states</span><span class="p">[</span><span class="n">count</span><span class="p">].</span><span class="n">move</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">states</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">get_file_len</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">pfile</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pfile</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"No file %s"</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">lines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">pfile</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">fgetc</span><span class="p">(</span><span class="n">pfile</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ch</span> <span class="o">==</span> <span class="sc">'\n'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">lines</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">lines</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><h4 id="main"><span class="me-2"><code class="language-plaintext highlighter-rouge">main</code></span><a href="#main" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>Finally, here is the <code class="language-plaintext highlighter-rouge">main</code> function, which puts this all together:</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td><td class="rouge-code"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">num_states</span> <span class="o">=</span> <span class="n">get_file_len</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">state</span><span class="o">*</span> <span class="n">states</span> <span class="o">=</span> <span class="n">get_states_from_file</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_states</span><span class="p">);</span>
+
+  <span class="c1">// Set up machine</span>
+  <span class="kt">int</span> <span class="n">machine_arr_size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">machine_array</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">machine_arr_size</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">machine_array</span><span class="p">,</span> <span class="sc">'_'</span><span class="p">,</span> <span class="n">machine_arr_size</span><span class="p">);</span>
+
+  <span class="c1">// write initial memory</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_INPUT_LIMIT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">machine_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// initial state</span>
+  <span class="kt">int</span> <span class="n">curr_state_number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">current_pointer</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+  <span class="n">instruction</span> <span class="n">ins</span><span class="p">;</span>
+  <span class="n">state_info_to_instruction</span><span class="p">(</span><span class="n">curr_state_number</span><span class="p">,</span> <span class="n">machine_array</span><span class="p">[</span><span class="n">current_pointer</span><span class="p">],</span>
+                            <span class="n">states</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ins</span><span class="p">);</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// doing this since even if halt, we want to write first</span>
+    <span class="n">run_machine</span><span class="p">(</span><span class="n">machine_array</span><span class="p">,</span> <span class="n">machine_arr_size</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_pointer</span><span class="p">,</span>
+                <span class="n">ins</span><span class="p">.</span><span class="n">machine_instruction</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// instruction length always 2</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">ins</span><span class="p">.</span><span class="n">machine_instruction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'H'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">state_info_to_instruction</span><span class="p">(</span><span class="n">curr_state_number</span><span class="p">,</span> <span class="n">machine_array</span><span class="p">[</span><span class="n">current_pointer</span><span class="p">],</span>
+                              <span class="n">states</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ins</span><span class="p">);</span>
+
+    <span class="n">curr_state_number</span> <span class="o">=</span> <span class="n">ins</span><span class="p">.</span><span class="n">next_state</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">free</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">machine_array</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div><h3 id="full-code"><span class="me-2">Full code</span><a href="#full-code" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Download the complete code <a href="https://karthikvedula.com/assets/files/turing.zip">here</a>!</p><blockquote class="prompt-warning"><p>Remember to run <code class="language-plaintext highlighter-rouge">make</code> to compile the source code!</p></blockquote><h3 id="demo"><span class="me-2">Demo</span><a href="#demo" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Using the states provided in this <a href="https://www.youtube.com/watch?v=QO6nYR6dr8Y&amp;">YouTube video</a>, I loaded an addition program into the Turing Machine. After compiling, just run</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>./turing addition_states_txt 6 ____1011_0110
+</pre></td></tr></tbody></table></code></div></div><p>to have the Turing Machine add the binary numbers <code class="language-plaintext highlighter-rouge">1011</code> and <code class="language-plaintext highlighter-rouge">0110</code>.</p><p>In general, the usage is:</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>./turing <span class="o">[</span>INPUT STATE FILE] <span class="o">[</span>STARTING HEAD LOCATION] <span class="o">[</span>INITIAL MEMORY <span class="o">(</span>optional<span class="o">)]</span>
+</pre></td></tr></tbody></table></code></div></div><p><strong>Check out the gif below!</strong></p><p><a href="https://karthikvedula.com/assets/images/2024/06/turing_demo.gif" class="popup img-link light shimmer"><img src="page_to_change_files/turing_demo.gif" alt="Image" loading="lazy"></a> <a href="https://karthikvedula.com/assets/images/2024/06/turing_demo_dark.gif" class="popup img-link dark"><img src="page_to_change_files/turing_demo_dark.gif" alt="Image" loading="lazy"></a></p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="https://karthikvedula.com/categories/coding-with-karthik/">Coding with Karthik</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="https://karthikvedula.com/tags/programming/" class="post-tag no-text-decoration">Programming</a> <a href="https://karthikvedula.com/tags/c-programming-language/" class="post-tag no-text-decoration">C Programming Language</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 "><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Coding%20with%20Karthik:%20Turing%20Machine%20in%20C%20-%20Karthik%27s%20Blog&amp;url=https%3A%2F%2Fkarthikvedula.com%2Fposts%2Fturing%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Twitter" data-bs-original-title="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Coding%20with%20Karthik:%20Turing%20Machine%20in%20C%20-%20Karthik%27s%20Blog&amp;u=https%3A%2F%2Fkarthikvedula.com%2Fposts%2Fturing%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Facebook" data-bs-original-title="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkarthikvedula.com%2Fposts%2Fturing%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Linkedin" data-bs-original-title="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" data-title-succeed="Link copied successfully!" data-bs-original-title="Copy link"> <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="https://karthikvedula.com/posts/how-pca-works/">So how does PCA actually work?</a></li><li class="text-truncate lh-lg"> <a href="https://karthikvedula.com/posts/raga-interactive/">The Algorithm Behind Ragas in Carnatic Music</a></li><li class="text-truncate lh-lg"> <a href="https://karthikvedula.com/2024/01/05/visualizing-the-perceptron-learning-algorithm/">Visualizing the Perceptron Learning Algorithm</a></li><li class="text-truncate lh-lg"> <a href="https://karthikvedula.com/posts/thanks-ml-club/">Thank you ML Club!</a></li><li class="text-truncate lh-lg"> <a href="https://karthikvedula.com/posts/turing/">Coding with Karthik: Turing Machine in C</a></li></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/programming/">Programming</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/natural-language-processing/">Natural Language Processing</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/dimensionality-reduction/">Dimensionality Reduction</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/neural-network/">Neural Network</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/principal-component-analysis/">Principal Component Analysis</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/time-series/">Time Series</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/c-programming-language/">C Programming Language</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/linear-regression/">Linear Regression</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/perceptron-learning/">Perceptron Learning</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/t-sne/">t-SNE</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"><ul class="toc-list "><li class="toc-list-item"><a href="#what-is-a-turing-machine" class="toc-link node-name--H3 ">What is a Turing Machine?</a></li><li class="toc-list-item"><a href="#credit" class="toc-link node-name--H3 ">Credit</a></li><li class="toc-list-item"><a href="#terminal-display-machinec" class="toc-link node-name--H3 ">Terminal Display (machine.c)</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#print_mem" class="toc-link node-name--H4 ">print_mem</a></li><li class="toc-list-item"><a href="#delay_and_flush" class="toc-link node-name--H4 ">delay_and_flush</a></li><li class="toc-list-item"><a href="#run_machine" class="toc-link node-name--H4 ">run_machine</a></li></ul></li><li class="toc-list-item"><a href="#states-turingc" class="toc-link node-name--H3 ">States (turing.c)</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#structs-search-and-state_info_to_instruction" class="toc-link node-name--H4 ">Structs, search, and state_info_to_instruction</a></li><li class="toc-list-item"><a href="#file-input" class="toc-link node-name--H4 ">File input</a></li><li class="toc-list-item"><a href="#main" class="toc-link node-name--H4 ">main</a></li></ul></li><li class="toc-list-item"><a href="#full-code" class="toc-link node-name--H3 ">Full code</a></li><li class="toc-list-item is-active-li"><a href="#demo" class="toc-link node-name--H3  is-active-link">Demo</a></li></ul></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="https://karthikvedula.com/posts/openscad/" class="post-preview card h-100"><div class="card-body"> <time>Sep 17, 2024</time><h4 class="pt-0 my-2">Trying OpenSCAD, a CAD software with a very different kind of interface</h4><div class="text-muted"><p>If you love designing in CAD and love to code, this might be right up your alley! Computer Aided Design, or CAD, is a type of software that allows users to model out 3D parts and assemblies. Whil...</p></div></div></a></article><article class="col"> <a href="https://karthikvedula.com/2024/01/05/visualizing-the-perceptron-learning-algorithm/" class="post-preview card h-100"><div class="card-body"> <time>Jan 5, 2024</time><h4 class="pt-0 my-2">Visualizing the Perceptron Learning Algorithm</h4><div class="text-muted"><p>Introduction The perceptron is an early innovation made in the field of machine learning. Designed to mimic the neurons in the human brain, it went on to build the foundations of today’s neural n...</p></div></div></a></article><article class="col"> <a href="https://karthikvedula.com/2023/11/18/ml-club-video-hands-on-pytorch/" class="post-preview card h-100"><div class="card-body"> <time>Nov 18, 2023</time><h4 class="pt-0 my-2">ML Club Video: Hands-on PyTorch!</h4><div class="text-muted"><p>In this ML Club session, we do a walk-through of how to code a simple neural network in the Python programming language. We will be using a deep-learning library called PyTorch to code a neural net...</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="https://karthikvedula.com/posts/rss-feeds/" class="btn btn-outline-primary" aria-label="Older"><p>Coding with Karthik: Stay in control of the news with an RSS email feed reader</p></a> <a href="https://karthikvedula.com/posts/openscad/" class="btn btn-outline-primary" aria-label="Newer"><p>Trying OpenSCAD, a CAD software with a very different kind of interface</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 "><p>© <time>2025</time> <a href="https://www.linkedin.com/in/karthik-s-vedula/">Karthik S. Vedula</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" data-bs-original-title="v7.4.1">Chirpy</a> theme for <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/programming/">Programming</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/natural-language-processing/">Natural Language Processing</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/dimensionality-reduction/">Dimensionality Reduction</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/neural-network/">Neural Network</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/principal-component-analysis/">Principal Component Analysis</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/time-series/">Time Series</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/c-programming-language/">C Programming Language</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/linear-regression/">Linear Regression</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/perceptron-learning/">Perceptron Learning</a> <a class="post-tag btn btn-outline-primary" href="https://karthikvedula.com/tags/t-sne/">t-SNE</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow show"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false"><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</body></html>
